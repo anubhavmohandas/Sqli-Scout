@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQLi-Scout Documentation</title>
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      color: #0066cc;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    
+    .platform-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #e6f2ff;
+      color: #0066cc;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    
+    /* Disclaimer */
+    .disclaimer {
+      background-color: #fff0f0;
+      border-left: 4px solid #ff4d4d;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 4px;
+    }
+    
+    .disclaimer h3 {
+      color: #cc0000;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .disclaimer p {
+      color: #cc0000;
+    }
+    
+    /* Tab Navigation */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 30px;
+      overflow-x: auto;
+    }
+    
+    .tab-button {
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #666;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .tab-button.active {
+      color: #0066cc;
+      border-bottom: 2px solid #0066cc;
+    }
+    
+    .tab-button:hover:not(.active) {
+      color: #0066cc;
+      background-color: #f8f9fa;
+    }
+    
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Features */
+    .feature-list {
+      list-style: none;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    
+    .feature-icon {
+      color: #22c55e;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    
+    /* Sections */
+    .section {
+      margin-bottom: 30px;
+    }
+    
+    .section h2 {
+      font-size: 1.8rem;
+      color: #0066cc;
+      margin-bottom: 20px;
+    }
+    
+    .section h3 {
+      font-size: 1.3rem;
+      color: #444;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .section h4 {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    
+    /* Info Boxes */
+    .info-box {
+      background-color: #e6f2ff;
+      border: 1px solid #cce5ff;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .info-box h3 {
+      color: #0066cc;
+      display: flex;
+      align-items: center;
+    }
+    
+    .info-box ul {
+      margin-left: 30px;
+      margin-top: 10px;
+    }
+    
+    .info-box li {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .info-box li::before {
+      content: "•";
+      color: #0066cc;
+      margin-right: 8px;
+    }
+    
+    /* Code Blocks */
+    .code-block {
+      background-color: #282c34;
+      color: #abb2bf;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    
+    .code-green {
+      color: #98c379;
+    }
+    
+    .code-blue {
+      color: #61afef;
+    }
+    
+    /* Inline Code */
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+    }
+    
+    /* Expandable Sections */
+    .expandable-header {
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .expandable-toggle {
+      background: none;
+      border: none;
+      color: #0066cc;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    
+    .expandable-content {
+      padding-left: 20px;
+      margin-bottom: 20px;
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+    
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .card {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    
+    /* Steps */
+    .steps-list {
+      list-style: none;
+    }
+    
+    .step-item {
+      display: flex;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .tabs {
+        flex-wrap: nowrap;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>SQLi-Scout 🔍</h1>
+      <p>A cross-platform SQL injection testing tool for security professionals</p>
+      <div class="platform-badges">
+        <span class="badge">Windows 🪟</span>
+        <span class="badge">macOS 🍎</span>
+        <span class="badge">Linux 🐧</span>
+      </div>
+    </header>
+    
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <h3><span style="margin-right: 8px;">⚠️</span> Disclaimer</h3>
+      <p>This tool is for <strong>ethical security testing only</strong>. Use responsibly and with permission. Unauthorized testing is illegal in most jurisdictions.</p>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-button active" data-tab="features">✨ Features</button>
+      <button class="tab-button" data-tab="installation">🛠️ Installation</button>
+      <button class="tab-button" data-tab="usage">📋 Usage</button>
+      <button class="tab-button" data-tab="platforms">💻 Platforms</button>
+      <button class="tab-button" data-tab="troubleshooting">🔧 Troubleshooting</button>
+      <button class="tab-button" data-tab="contribute">👥 Contribute</button>
+    </div>
+    
+    <!-- Tab Content -->
+    <!-- Features Tab -->
+    <div id="features" class="tab-content active">
+      <section class="section">
+        <h2>✨ Features</h2>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Detects SQL injection vulnerabilities in web applications</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Tests both GET and POST parameters</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Cross-platform compatibility (Windows, macOS, Linux)</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Optimized for Apple Silicon (ARM) processors</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Automatic form detection and parameter extraction</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Customizable SQL injection payloads</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Error-based and time-based vulnerability detection</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Multi-threaded scanning for improved performance</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Detailed scan reports</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Progress tracking during scans</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span>Graceful color handling for different terminals</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+    
+    <!-- Installation Tab -->
+    <div id="installation" class="tab-content">
+      <section class="section">
+        <h2>🛠️ Installation</h2>
+        
+        <div class="info-box" style="background-color: #fff8e6; border-color: #ffe7a0;">
+          <h3><span style="margin-right: 8px;">📌</span> Prerequisites</h3>
+          <ul>
+            <li>Python 3.6 or higher</li>
+            <li>pip package manager</li>
+          </ul>
+        </div>
+        
+        <div class="section">
+          <h3>Step 1: Clone the repository</h3>
+          <div class="code-block">
+            <span class="code-green">git clone https://github.com/yourusername/sqli-scout.git</span><br>
+            <span class="code-green">cd sqli-scout</span>
+          </div>
+          
+          <h3>Step 2: Install dependencies</h3>
+          <div class="code-block">
+            <span class="code-green">pip install -r requirements.txt</span>
+          </div>
+          <p style="font-style: italic; color: #777; font-size: 0.9rem;">On some systems, you might need to use <code>pip3</code> instead of <code>pip</code>.</p>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Usage Tab -->
+    <div id="usage" class="tab-content">
+      <section class="section">
+        <h2>📋 Usage</h2>
+        
+        <div>
+          <h3>Basic Usage</h3>
+          <div class="code-block">
+            <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1"</span>
+          </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+          <h3>Command Line Options</h3>
+          <div class="code-block" style="color: #ddd;">
+            usage: sqli-scout.py [-h] -u URL [-p PARAMETER] [-c COOKIE] [-d DATA] [-t THREADS] [--form]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[--timeout TIMEOUT] [-v] [--payload-file PAYLOAD_FILE]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[--error-pattern-file ERROR_PATTERN_FILE] [-o OUTPUT] [--no-color]
+          </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+          <h3 class="expandable-header">
+            Examples
+            <button class="expandable-toggle" data-target="examples-content">(Show)</button>
+          </h3>
+          
+          <div id="examples-content" class="expandable-content">
+            <div style="margin-bottom: 20px;">
+              <h4>Test a specific URL parameter</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" -p id</span>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <h4>Test a form using POST</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/login.php" --form -d "username=test&password=test"</span>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <h4>Use custom payloads</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/search.php?q=test" --payload-file custom_payloads.txt</span>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <h4>Save scan results</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" -o scan_results.txt</span>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <h4>Enable verbose output</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" -v</span>
+              </div>
+            </div>
+            
+            <div>
+              <h4>Scan with custom cookies</h4>
+              <div class="code-block">
+                <span class="code-green">python sqli-scout.py -u "http://example.com/member.php" -c "PHPSESSID=1234abcd; loggedin=true"</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+          <h3 class="expandable-header">
+            Custom Files
+            <button class="expandable-toggle" data-target="custom-files-content">(Show)</button>
+          </h3>
+          
+          <div id="custom-files-content" class="expandable-content">
+            <div style="margin-bottom: 20px;">
+              <h4>Custom Payload Files</h4>
+              <p style="margin-bottom: 10px; font-size: 0.95rem;">Create custom payload files with one payload per line:</p>
+              <div class="code-block">
+                <span class="code-blue">'</span><br>
+                <span class="code-blue">"</span><br>
+                <span class="code-blue">1' OR '1'='1</span><br>
+                <span class="code-blue">' OR 1=1 --</span>
+              </div>
+              <p style="font-style: italic; color: #777; font-size: 0.9rem; margin-top: 5px;">Lines starting with # are treated as comments.</p>
+            </div>
+            
+            <div>
+              <h4>Error Pattern Files</h4>
+              <p style="margin-bottom: 10px; font-size: 0.95rem;">Create custom error pattern files (regex patterns):</p>
+              <div class="code-block">
+                <span class="code-blue">SQL syntax.*?error</span><br>
+                <span class="code-blue">ORA-[0-9]{5}</span><br>
+                <span class="code-blue">Unclosed quotation mark</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Platforms Tab -->
+    <div id="platforms" class="tab-content">
+      <section class="section">
+        <h2>💻 Platform-Specific Notes</h2>
+        
+        <div class="info-box">
+          <h3><span style="margin-right: 8px;">🪟</span> Windows</h3>
+          <ul>
+            <li>Windows Terminal or PowerShell is recommended for proper color support</li>
+            <li>If you encounter encoding issues, use the <code>--no-color</code> option</li>
+          </ul>
+        </div>
+        
+        <div class="info-box">
+          <h3><span style="margin-right: 8px;">🍎</span> macOS</h3>
+          <ul>
+            <li>For Apple Silicon (M1/M2/M3) Macs, the tool will automatically optimize thread count</li>
+            <li>Terminal.app and iTerm2 are fully supported</li>
+          </ul>
+        </div>
+        
+        <div class="info-box">
+          <h3><span style="margin-right: 8px;">🐧</span> Linux</h3>
+          <ul>
+            <li>Most terminal emulators are supported with color</li>
+            <li>Use <code>python3</code> explicitly if both Python 2 and 3 are installed</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Troubleshooting Tab -->
+    <div id="troubleshooting" class="tab-content">
+      <section class="section">
+        <h2>🔧 Troubleshooting</h2>
+        
+        <div class="cards-grid">
+          <div class="card">
+            <h3><span style="margin-right: 8px;">🎨</span> Color Issues</h3>
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">If you experience issues with colored output:</p>
+            <div class="code-block">
+              <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" --no-color</span>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3><span style="margin-right: 8px;">🔌</span> Connection Errors</h3>
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">If you're experiencing connection issues:</p>
+            <div class="code-block">
+              <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" --timeout 30</span>
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3><span style="margin-right: 8px;">⚡</span> Performance Issues</h3>
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">For slower systems, reduce the number of threads:</p>
+            <div class="code-block">
+              <span class="code-green">python sqli-scout.py -u "http://example.com/page.php?id=1" -t 2</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Contribute Tab -->
+    <div id="contribute" class="tab-content">
+      <section class="section">
+        <h2>👥 Contributing</h2>
+        
+        <div style="background-color: #f0f9f0; border: 1px solid #d1e7dd; border-radius: 6px; padding: 24px;">
+          <h3 style="color: #0f5132; margin-bottom: 15px;">How to Contribute</h3>
+          <p style="margin-bottom: 20px;">
+            Contributions are welcome! Please feel free to submit a Pull Request.
+          </p>
+          
+          <ol class="steps-list">
+            <li class="step-item">
+              <span class="step-number">1</span>
+              <span>Fork the repository</span>
+            </li>
+            <li class="step-item">
+              <span class="step-number">2</span>
+              <span>Create your feature branch (<code>git checkout -b feature/amazing-feature</code>)</span>
+            </li>
+            <li class="step-item">
+              <span class="step-number">3</span>
+              <span>Commit your changes (<code>git commit -m 'Add some amazing feature'</code>)</span>
+            </li>
+            <li class="step-item">
+              <span class="step-number">4</span>
+              <span>Push to the branch (<code>git push origin feature/amazing-feature</code>)</span>
+            </li>
+            <li class="step-item">
+              <span class="step-number">5</span>
+              <span>Open a Pull Request</span>
+            </li>
+          </ol>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+          <p style="color: #666;">
+            This project is licensed under the MIT License
+          </p>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+      SQLi-Scout 🔍 — A Cross-Platform SQL Injection Testing Tool
+    </footer>
+  </div>
+
+  <script>
+    // Tab switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabId = button.getAttribute('data-tab');
+          
+          // Update active tab button
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          // Show the corresponding tab content
+          tabContents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) {
+              content.classList.add('active');
+            }
+          });
+        });
+      });
+      
+      // Expandable sections
+      const expandableToggles = document.querySelectorAll('.expandable-toggle');
+      
+      expandableToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const targetId = toggle.getAttribute('data-target');
+          const targetContent = document.getElementById(targetId);
+          
+          if (targetContent.style.display === 'block') {
+            targetContent.style.display = 'none';
+            toggle.textContent = '(Show)';
+          } else {
+            targetContent.style.display = 'block';
+            toggle.textContent = '(Hide)';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

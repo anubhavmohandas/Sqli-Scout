@@ -65,22 +65,22 @@ usage: sqli-scout.py [-h] -u URL [-p PARAMETER] [-c COOKIE] [-d DATA] [-t THREAD
 
 SQLi-Scout: A Cross-Platform SQL Injection Testing Tool
 
-options:
-| Option                                | Description                                                              |
-|---------------------------------------|--------------------------------------------------------------------------|
-| `-h, --help`                          | Show this help message and exit                                           |
-| `-u URL, --url URL`                   | Target URL to test                                                        |
-| `-p PARAMETER, --parameter PARAMETER`  | Specific parameter to test                                                |
-| `-c COOKIE, --cookie COOKIE`          | Cookies to include with requests                                          |
-| `-d DATA, --data DATA`                | POST data to send                                                         |
-| `-t THREADS, --threads THREADS`       | Number of concurrent threads                                              |
-| `--form`                              | Test form parameters                                                      |
-| `--timeout TIMEOUT`                   | Request timeout in seconds                                               |
-| `-v, --verbose`                       | Enable verbose output                                                     |
-| `--payload-file PAYLOAD_FILE`         | Path to file containing custom SQL injection payloads                    |
-| `--error-pattern-file ERROR_PATTERN_FILE` | Path to file containing custom error patterns                           |
-| `-o OUTPUT, --output OUTPUT`          | Save results to output file                                               |
-| `--no-color`                          | Disable colored output                                                    |
+```
+| Argument                              | Description                                                     |
+|---------------------------------------|-----------------------------------------------------------------|
+| `-h, --help`                          | Show this help message and exit                                  |
+| `-u URL, --url URL`                   | Target URL to test                                               |
+| `-p PARAMETER, --parameter PARAMETER`  | Specific parameter to test                                       |
+| `-c COOKIE, --cookie COOKIE`          | Cookies to include with requests                                 |
+| `-d DATA, --data DATA`                | POST data to send                                                |
+| `-t THREADS, --threads THREADS`       | Number of concurrent threads                                     |
+| `--form`                              | Test form parameters                                             |
+| `--timeout TIMEOUT`                   | Request timeout in seconds                                      |
+| `-v, --verbose`                       | Enable verbose output                                            |
+| `--payload-file PAYLOAD_FILE`         | Path to file containing custom SQL injection payloads           |
+| `--error-pattern-file ERROR_PATTERN_FILE` | Path to file containing custom error patterns                  |
+| `-o OUTPUT, --output OUTPUT`          | Save results to output file                                      |
+| `--no-color`                          | Disable colored output                                           |
 ```
 
 ### 📋 Examples

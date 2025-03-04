@@ -46,8 +46,8 @@ cd sqli-scout
 pip install -r requirements.txt
 ```
 OR
-```bash #(For Kali Linux)
-pip install -r requirements.txt --break-system-packages 
+```bash 
+pip install -r requirements.txt --break-system-packages #(For Kali Linux)
 ```
 
 > 💡 On some systems, you might need to use `pip3` instead of `pip`.

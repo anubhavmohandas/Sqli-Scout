@@ -81,7 +81,8 @@ SQLi-Scout: A Cross-Platform SQL Injection Testing Tool
 | `--error-pattern-file ERROR_PATTERN_FILE` | Path to file containing custom error patterns                  |
 | `-o OUTPUT, --output OUTPUT`          | Save results to output file                                      |
 | `--no-color`                          | Disable colored output                                           |
-```
+
+
 
 ### 📋 Examples
 

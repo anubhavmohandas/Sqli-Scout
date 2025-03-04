@@ -1,6 +1,6 @@
 # 🛡️ SQLi-Scout
 
-![SQLi-Scout Logo](https://via.placeholder.com/800x200/0073CF/FFFFFF?text=SQLi-Scout)
+![SQLi-Scout Logo](https://ibb.co/ymTHSVCM)
 
 A cross-platform SQL injection testing tool designed for security professionals and penetration testers. SQLi-Scout helps identify SQL injection vulnerabilities in web applications on Windows, macOS (including Apple Silicon), and Linux systems.
 

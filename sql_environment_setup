@@ -1,0 +1,71 @@
+# Safe SQL Injection Practice Environment Setup
+
+## Option 1: DVWA (Damn Vulnerable Web Application)
+### Local Installation
+1. Install Docker
+2. Run the following commands:
+```bash
+docker pull vulnerables/web-dvwa
+docker run -d -p 80:80 vulnerables/web-dvwa
+```
+3. Access via `http://localhost`
+4. Default credentials:
+   - Username: admin
+   - Password: password
+
+## Option 2: WebGoat (OWASP)
+### Docker Installation
+1. Install Docker
+2. Run the command:
+```bash
+docker pull webgoat/webgoat
+docker run -p 8080:8080 -t webgoat/webgoat
+```
+3. Access via `http://localhost:8080/WebGoat`
+
+## Option 3: Local Vulnerable Web Application
+### PHP + MySQL Vulnerable App Setup
+1. Install XAMPP/WAMP/MAMP
+2. Create a vulnerable database:
+```sql
+CREATE DATABASE vulnerable_app;
+USE vulnerable_app;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+
+INSERT INTO users (username, password) VALUES 
+('admin', 'password123'),
+('user', 'test1234');
+```
+
+3. Create a simple vulnerable PHP script (vulnerable.php):
+```php
+<?php
+$conn = mysqli_connect('localhost', 'root', '', 'vulnerable_app');
+$id = $_GET['id'];
+$query = "SELECT * FROM users WHERE id = $id";
+$result = mysqli_query($conn, $query);
+// Deliberately vulnerable to SQL injection
+?>
+```
+
+## Recommended Learning Resources
+- OWASP SQL Injection Prevention Cheat Sheet
+- PortSwigger Web Security Academy
+- HackTheBox Academy
+
+## Safety Guidelines
+1. ALWAYS use these environments in a ISOLATED network
+2. NEVER test on production websites
+3. Use only with explicit permission
+4. Understand the ethical implications
+5. Practice responsible disclosure
+
+## Learning Objectives
+- Understand SQL injection mechanics
+- Learn prevention techniques
+- Develop secure coding practices
